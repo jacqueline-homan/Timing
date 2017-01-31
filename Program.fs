@@ -53,6 +53,17 @@ module Clocks =
     te.Duration.Milliseconds |> printfn "%A"
 
     //accelerated clock
+    let accClock (start : DateTimeOffset) rate () = 
+        let now = DateTimeOffset.Now 
+        let elapsed = now - start
+        start.AddTicks (elapsed.Ticks * rate)
+    
+    let start = DateTimeOffset.Now
+    let tenXclock = accClock start 10L
+    tenXclock() |> printfn "%A"
+    let te' = Timed.timeOn tenXclock slowEcho 42
+    te' |> printfn "%A"
+    te'.Duration.TotalMilliseconds |> printfn "%A"
 
 [<EntryPoint>]
 let main argv = 
