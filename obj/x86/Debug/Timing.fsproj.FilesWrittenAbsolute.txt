@@ -1,0 +1,5 @@
+/home/jacque/Projects/F-sharp/Timing/Timing/obj/x86/Debug/.NETFramework,Version=v4.5.1.AssemblyAttribute.fs
+/home/jacque/Projects/F-sharp/Timing/Timing/bin/Debug/Timing.exe.mdb
+/home/jacque/Projects/F-sharp/Timing/Timing/bin/Debug/Timing.exe
+/home/jacque/Projects/F-sharp/Timing/Timing/obj/x86/Debug/Timing.exe
+/home/jacque/Projects/F-sharp/Timing/Timing/obj/x86/Debug/Timing.exe.mdb
