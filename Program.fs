@@ -1,10 +1,13 @@
 ﻿open System
+open System.Collections.Generic
 
 type Timed<'a> = 
     { Started : DateTimeOffset
       Stopped : DateTimeOffset
       Result : 'a}
     member this.Duration = this.Stopped - this.Started
+
+type Queue = Queue of DateTimeOffset
 
 let t = { 
     Started = DateTimeOffset(DateTime(2016, 12, 7), TimeSpan.FromHours 2.);
@@ -52,7 +55,7 @@ module Clocks =
     te.Duration.TotalMilliseconds |> printfn "%A"
     te.Duration.Milliseconds |> printfn "%A"
 
-    //accelerated clock
+    //accelerated clock for simulations and prototyping
     let accClock (start : DateTimeOffset) rate () = 
         let now = DateTimeOffset.Now 
         let elapsed = now - start
@@ -60,11 +63,22 @@ module Clocks =
     
     let start = DateTimeOffset.Now
     let tenXclock = accClock start 10L
-    tenXclock() |> printfn "%A"
+    tenXclock() |> strTime |> printfn "%A"
     let te' = Timed.timeOn tenXclock slowEcho 42
-    te' |> printfn "%A"
     te'.Duration.TotalMilliseconds |> printfn "%A"
 
+    //fake clocks for unit-testing purposes or queues
+    //Here, we need Collections so we can use a 'q of t'
+    let qlock (q : Queue<DateTimeOffset>) = q.Dequeue
+    //in order to create a queue, we need a sequence of DateTimeOffset values
+    let now = DateTimeOffset.Now
+    let dts = 
+        Seq.init 10 float
+        |> Seq.map (fun x -> now + TimeSpan.FromMinutes x)
+        |> Seq.map strTime
+        |> Seq.toList
+        |> printfn "%A" 
+    
 [<EntryPoint>]
 let main argv = 
     printfn "%A" argv
