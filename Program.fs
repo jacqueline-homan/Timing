@@ -78,7 +78,7 @@ module Clocks =
         |> Seq.map strTime
         |> Seq.toList
         |> printfn "%A" 
-    
+    let q = Queue<DateTimeOffset> dts
 [<EntryPoint>]
 let main argv = 
     printfn "%A" argv
